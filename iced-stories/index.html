@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iced Stories</title>
+<meta name="description" content="Turtă dulce și biscuiți decorați la comandă pentru nunți, botezuri, aniversări și corporate. Livrare în toată țara. 18 lei / bucată.">
+<meta name="keywords" content="biscuiti decorati, turta dulce decorata, marturii botez, candy bar nunta, biscuiti personalizati, turta dulce nunta, marturii handmade, biscuiti aniversare copii, turta dulce botez, comenzi biscuiti decorati">
+<meta property="og:title" content="Iced Stories – Biscuiți Decorați la Comandă">
+<meta property="og:description" content="Turtă dulce și biscuiți decorați handmade pentru nunți, botezuri și aniversări. 18 lei/bucată, livrare națională.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Nunito:wght@300;400;500;600;700&display=swap">
+
+<style>
+:root {
+  --bg:          #FDF5E8;
+  --bg-surface:  #F5E6CC;
+  --bg-hero:     #3B1A06;
+  --fg:          #2A0F02;
+  --fg-muted:    #8C5E2A;
+  --accent:      #B8470F;
+  --accent-h:    #962E00;
+  --gold:        #C07B10;
+  --border:      #D4A86A;
+  --success:     #3D9A6B;
+
+  --f-display: 'Cormorant Garamond', Georgia, serif;
+  --f-body:    'Nunito', 'Helvetica Neue', sans-serif;
+
+  --r-sm: 4px;
+  --r-md: 10px;
+  --r-lg: 20px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #18100D;
+    --bg-surface: #221510;
+    --bg-hero:    #100A0C;
+    --fg:         #F0E8E4;
+    --fg-muted:   #A89490;
+    --accent:     #C97080;
+    --accent-h:   #E08595;
+    --gold:       #D4B87A;
+    --border:     #3A2822;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:         #18100D;
+  --bg-surface: #221510;
+  --bg-hero:    #100A0C;
+  --fg:         #F0E8E4;
+  --fg-muted:   #A89490;
+  --accent:     #C97080;
+  --accent-h:   #E08595;
+  --gold:       #D4B87A;
+  --border:     #3A2822;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--f-body);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left:  max(24px, env(safe-area-inset-left,  0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0;
+}
+
+img { max-width: 100%; display: block; }
+
+section { scroll-margin-top: 68px; }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: var(--r-sm);
+  font-family: var(--f-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, border-color 0.2s, color 0.2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-rose  { background: var(--accent); color: #fff; }
+.btn-rose:hover { background: var(--accent-h); }
+.btn-ghost { background: transparent; color: rgba(240,232,228,.85); border: 1.5px solid rgba(240,232,228,.3); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-gold  { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+.btn-gold:hover  { background: var(--gold); color: var(--bg-hero); }
+.btn-muted { background: transparent; color: var(--fg-muted); border: 1.5px solid var(--border); }
+.btn-muted:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0; right: 0;
+  z-index: 200;
+  background: rgba(38, 21, 25, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 max(24px, env(safe-area-inset-left, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 24px;
+}
+
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 1.55rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0; padding: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,232,228,.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links .cta-link { background: var(--accent); color: #fff !important; padding: 7px 16px; border-radius: var(--r-sm); }
+.nav-links .cta-link:hover { background: var(--accent-h); }
+
+.nav-toggle {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  color: var(--gold); padding: 4px; font-size: 1.4rem;
+}
+
+.mobile-menu {
+  display: none;
+  background: rgba(38,21,25,.98);
+  padding-block: 8px 20px;
+  padding-left:  max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block; padding: 11px 0;
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(240,232,228,.8); text-decoration: none;
+  border-bottom: 1px solid rgba(201,169,110,.12);
+}
+.mobile-menu a:last-child { border-bottom: none; }
+
+/* ---- HERO ---- */
+#hero {
+  background:
+    linear-gradient(rgba(38,15,5,.78), rgba(38,15,5,.78)),
+    url('images/craciun/craciun_03.jpeg') center/cover no-repeat;
+  min-height: 100svh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding-top: 64px;
+}
+
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 70% at 15% 50%, rgba(168,80,96,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 85% 60%, rgba(201,169,110,.10) 0%, transparent 55%);
+}
+
+.hero-content {
+  position: relative; z-index: 1;
+  padding-block: 90px;
+}
+
+.eyebrow {
+  font-family: var(--f-body);
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: ''; display: block;
+  height: 1px; width: 36px;
+  background: var(--gold); opacity: .45;
+}
+
+.hero-title {
+  font-family: var(--f-display);
+  font-size: clamp(2.8rem, 7.5vw, 5rem);
+  font-weight: 300;
+  color: #F0E8E4;
+  line-height: 1.0;
+  margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+
+.hero-sub {
+  font-size: 0.9rem; font-weight: 400;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(240,232,228,.55);
+  margin-bottom: 44px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-badges {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 40px;
+  border-top: 1px solid rgba(201,169,110,.15);
+}
+
+.hero-badge { display: flex; flex-direction: column; gap: 4px; }
+.badge-num {
+  font-family: var(--f-display);
+  font-size: 2rem; font-weight: 500;
+  color: var(--gold); line-height: 1;
+}
+.badge-label {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(240,232,228,.45);
+}
+
+/* ---- SECTION SHARED ---- */
+.section-pad { padding-block: 88px; }
+
+.s-label {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.s-label-gold { color: var(--gold); }
+
+.s-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+  font-weight: 400; color: var(--fg); margin-bottom: 14px;
+}
+.s-title em { font-style: italic; color: var(--accent); }
+
+.s-desc {
+  font-size: 0.95rem; color: var(--fg-muted);
+  max-width: 580px; margin-bottom: 48px; line-height: 1.75;
+}
+
+/* ---- DESPRE ---- */
+#despre { background: var(--bg-surface); }
+
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+
+.feat {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 26px 22px;
+  transition: border-color .2s, transform .2s;
+}
+.feat:hover { border-color: var(--gold); transform: translateY(-2px); }
+.feat-icon { font-size: 1.7rem; margin-bottom: 14px; }
+.feat-title { font-family: var(--f-display); font-size: 1.25rem; font-weight: 500; margin-bottom: 8px; color: var(--fg); }
+.feat-text  { font-size: 0.85rem; color: var(--fg-muted); line-height: 1.65; }
+
+/* ---- EVENTS ---- */
+#evenimente { background: var(--bg); }
+
+.events-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 44px;
+}
+.ev-tab {
+  padding: 9px 20px;
+  border-radius: var(--r-sm);
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1.5px solid var(--border);
+  background: transparent; color: var(--fg-muted);
+  cursor: pointer; transition: all .2s;
+}
+.ev-tab.active, .ev-tab:hover {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+
+.ev-panel { display: none; }
+.ev-panel.active { display: block; }
+
+.ev-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 52px; align-items: center;
+}
+.ev-layout.rev { direction: rtl; }
+.ev-layout.rev > * { direction: ltr; }
+
+/* ---- PHOTO GRID ---- */
+.ev-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ev-photo-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  display: block;
+  transition: transform .3s ease;
+}
+
+.ev-photo-grid img:hover { transform: scale(1.03); }
+
+.ev-photo-grid img:last-child:nth-child(odd) {
+  grid-column: span 2;
+  aspect-ratio: 2 / 1;
+}
+
+.ev-photo-grid img { cursor: zoom-in; }
+
+/* ---- LIGHTBOX ---- */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,.88);
+  align-items: center; justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-height: 90svh;
+  max-width: 90vw;
+  border-radius: var(--r-md);
+  object-fit: contain;
+  pointer-events: none;
+  box-shadow: 0 8px 48px rgba(0,0,0,.6);
+}
+.lb-close {
+  position: absolute; top: 20px; right: 24px;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,.7); font-size: 2rem; line-height: 1;
+  transition: color .2s;
+}
+.lb-close:hover { color: #fff; }
+
+/* ---- PLACEHOLDER (sections awaiting photos) ---- */
+.ev-placeholder {
+  aspect-ratio: 4/3;
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+  border: 2px dashed var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.ev-placeholder-inner {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  color: var(--fg-muted);
+}
+.ev-ph-icon { font-size: 2.4rem; opacity: .35; }
+.ev-ph-text {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  opacity: .45;
+}
+
+/* ---- SHARED EVENT INFO ---- */
+.ev-info h3 {
+  font-family: var(--f-display);
+  font-size: 2.4rem; font-weight: 400;
+  margin-bottom: 14px; color: var(--fg);
+}
+.ev-info p { font-size: 0.93rem; color: var(--fg-muted); line-height: 1.75; margin-bottom: 18px; }
+
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.tag {
+  padding: 4px 11px; border-radius: 20px;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  font-size: 0.72rem; font-weight: 700; color: var(--fg-muted); letter-spacing: .05em;
+}
+
+/* Botezuri sub-tabs */
+.sub-tabs-wrap {
+  display: inline-flex; background: var(--bg-surface);
+  border-radius: var(--r-sm); padding: 3px; gap: 2px;
+  margin-bottom: 28px;
+}
+.sub-tab {
+  padding: 8px 20px;
+  border-radius: var(--r-sm);
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; background: transparent;
+  color: var(--fg-muted); cursor: pointer; transition: all .2s;
+}
+.sub-tab.active { background: var(--accent); color: #fff; }
+
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+/* ---- PRICING ---- */
+#preturi {
+  background: var(--bg-hero);
+  position: relative; overflow: hidden;
+}
+#preturi::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 55% 65% at 25% 55%, rgba(168,80,96,.13) 0%, transparent 60%);
+}
+#preturi .s-title { color: #F0E8E4; }
+#preturi .s-desc  { color: rgba(240,232,228,.55); }
+
+.price-hero {
+  display: flex; align-items: flex-end; gap: 12px;
+  font-family: var(--f-display); margin-bottom: 6px;
+}
+.price-num {
+  font-size: clamp(5rem, 14vw, 9rem);
+  font-weight: 300; color: var(--gold); line-height: 1;
+}
+.price-unit-wrap { padding-bottom: 12px; }
+.price-currency { font-size: 2.2rem; color: var(--gold); font-weight: 300; }
+.price-per { font-size: 1rem; color: rgba(240,232,228,.45); display: block; }
+
+.price-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 18px; margin-top: 44px;
+}
+.price-card {
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--r-md); padding: 22px 20px;
+  background: rgba(255,255,255,.03);
+}
+.price-card-title {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.price-card-text { font-size: 0.9rem; color: rgba(240,232,228,.7); line-height: 1.65; }
+
+/* ---- ORDER FORM ---- */
+#comanda { background: var(--bg-surface); }
+
+.form-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.steps-bar {
+  background: var(--bg-hero);
+  padding: 22px 32px;
+  display: flex; align-items: center; gap: 0;
+}
+.step-item { display: flex; align-items: center; gap: 10px; flex: 1; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid rgba(201,169,110,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700;
+  color: rgba(240,232,228,.4); flex-shrink: 0;
+  transition: all .3s;
+}
+.step-item.active .step-num  { background: var(--accent); border-color: var(--accent); color: #fff; }
+.step-item.done   .step-num  { background: var(--gold);   border-color: var(--gold);   color: var(--bg-hero); }
+.step-lbl {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(240,232,228,.35); transition: color .3s; white-space: nowrap;
+}
+.step-item.active .step-lbl { color: rgba(240,232,228,.9); }
+.step-item.done   .step-lbl { color: var(--gold); }
+.step-line {
+  flex: 0 0 28px; height: 1px;
+  background: rgba(201,169,110,.18); margin: 0 6px;
+}
+
+.form-body { padding: 36px 32px; }
+.fpanel { display: none; }
+.fpanel.active { display: block; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+.fg { margin-bottom: 18px; }
+.fg label {
+  display: block;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--fg-muted); margin-bottom: 7px;
+}
+.fg input[type="checkbox"] { -webkit-appearance: checkbox; appearance: checkbox; width: auto; }
+.fg input:not([type="checkbox"]), .fg select, .fg textarea {
+  width: 100%; padding: 11px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: 0.93rem;
+  transition: border-color .2s; outline: none;
+  -webkit-appearance: none;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--accent); }
+.fg textarea { resize: vertical; min-height: 90px; }
+.fg .hint { font-size: 0.75rem; color: var(--fg-muted); margin-top: 5px; }
+
+.flavor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.fl-opt { position: relative; }
+.fl-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.fl-label {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 5px; padding: 14px 8px;
+  border: 1.5px solid var(--border); border-radius: var(--r-sm);
+  cursor: pointer; text-align: center;
+  transition: all .2s; min-height: 80px; justify-content: center;
+}
+.fl-opt input:checked + .fl-label { border-color: var(--accent); background: rgba(168,80,96,.07); }
+.fl-opt input:focus-visible + .fl-label { outline: 2px solid var(--accent); }
+.fl-em { font-size: 1.5rem; }
+.fl-nm { font-size: 0.72rem; font-weight: 700; color: var(--fg); }
+
+.calc-box {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 18px 22px; margin-top: 20px;
+}
+.calc-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 5px 0; font-size: 0.88rem; color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+.calc-row.total {
+  border-top: 1px solid var(--border); margin-top: 10px; padding-top: 12px;
+  font-weight: 700; font-size: 1.08rem; color: var(--fg);
+}
+.discount-badge {
+  background: rgba(61,154,107,.12); color: var(--success);
+  font-size: 0.72rem; font-weight: 700; padding: 2px 7px; border-radius: 10px;
+}
+
+.sum-box {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 22px 24px; margin-bottom: 20px;
+}
+.sum-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 9px 0; border-bottom: 1px solid var(--border); gap: 16px;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-muted); flex-shrink: 0; }
+.sum-val { font-size: 0.9rem; color: var(--fg); text-align: right; min-width: 0; }
+
+.pay-box {
+  border: 1px solid rgba(168,80,96,.25);
+  background: rgba(168,80,96,.04);
+  border-radius: var(--r-md); padding: 22px 24px; margin-bottom: 24px;
+}
+.pay-box h4 { font-family: var(--f-display); font-size: 1.3rem; color: var(--accent); margin-bottom: 10px; }
+.pay-box p  { font-size: 0.85rem; color: var(--fg-muted); margin: 0 0 6px; line-height: 1.65; }
+.pay-amount {
+  font-family: var(--f-display); font-size: 2.2rem;
+  color: var(--accent); font-weight: 500; margin: 10px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.form-nav {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.success-state { text-align: center; padding: 48px 24px; display: none; }
+.success-state.show { display: block; }
+.success-icon { font-size: 3rem; margin-bottom: 14px; }
+.success-state h3 { font-family: var(--f-display); font-size: 2.2rem; margin-bottom: 10px; color: var(--fg); }
+.success-state p { color: var(--fg-muted); font-size: 0.93rem; margin-bottom: 22px; }
+
+/* ---- CONTACT ---- */
+#contact { background: var(--bg-hero); }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+.contact-title { font-family: var(--f-display); font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 300; color: #F0E8E4; line-height: 1.1; margin-bottom: 20px; }
+.contact-title em { font-style: italic; color: var(--gold); }
+.contact-desc { font-size: 0.93rem; color: rgba(240,232,228,.55); line-height: 1.75; }
+
+.contact-items { display: flex; flex-direction: column; gap: 12px; }
+.ci {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 18px;
+  border: 1px solid rgba(201,169,110,.14);
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,.025);
+  transition: border-color .2s;
+  text-decoration: none;
+}
+.ci:hover { border-color: rgba(201,169,110,.35); }
+.ci-icon { font-size: 1.25rem; flex-shrink: 0; }
+.ci-label { font-size: 0.62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 3px; }
+.ci-val { font-size: 0.93rem; color: rgba(240,232,228,.85); }
+
+/* ---- FOOTER ---- */
+footer {
+  background: #140C0E;
+  padding-block: 32px;
+  text-align: center;
+  padding-left:  max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+.footer-logo { font-family: var(--f-display); font-size: 1.9rem; color: var(--gold); margin-bottom: 6px; }
+.footer-sub  { font-size: 0.72rem; letter-spacing: .12em; color: rgba(240,232,228,.25); text-transform: uppercase; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .ev-layout, .ev-layout.rev, .contact-grid { grid-template-columns: 1fr; direction: ltr; }
+  .ev-layout.rev > * { direction: ltr; }
+  .form-row   { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .steps-bar  { padding: 16px 20px; }
+  .step-lbl   { display: none; }
+  .step-line  { flex: 0 0 20px; }
+  .form-body  { padding: 24px 20px; }
+  .hero-badges { gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .flavor-grid { grid-template-columns: 1fr 1fr; }
+  .price-cards { grid-template-columns: 1fr; }
+  .features    { grid-template-columns: 1fr; }
+}
+
+/* ---- FADE ANIMATIONS ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .fade-up.vis { opacity: 1; transform: none; }
+  .fade-up:nth-child(2) { transition-delay: .1s; }
+  .fade-up:nth-child(3) { transition-delay: .2s; }
+  .fade-up:nth-child(4) { transition-delay: .3s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Iced Stories</a>
+    <ul class="nav-links">
+      <li><a href="#despre">Despre</a></li>
+      <li><a href="#evenimente">Evenimente</a></li>
+      <li><a href="#preturi">Prețuri</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#comanda" class="cta-link">Comandă</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Meniu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#despre" onclick="closeMobileMenu()">Despre</a>
+    <a href="#evenimente" onclick="closeMobileMenu()">Evenimente</a>
+    <a href="#preturi" onclick="closeMobileMenu()">Prețuri</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    <a href="#comanda" onclick="closeMobileMenu()">Comandă acum</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Decorat cu dragoste</div>
+    <h1 class="hero-title">
+      Iced<br><em>Stories</em>
+    </h1>
+    <p class="hero-sub">Turtă dulce decorată la comandă</p>
+    <div class="hero-actions">
+      <a href="#comanda" class="btn btn-rose">Plasează o comandă</a>
+      <a href="#evenimente" class="btn btn-ghost">Descoperă evenimentele</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DESPRE ========== -->
+<section id="despre">
+  <div class="wrap section-pad">
+    <div class="s-label">De ce Iced Stories</div>
+    <h2 class="s-title">Artă <em>comestibilă</em></h2>
+    <p class="s-desc">Fiecare turtă dulce este o poveste. Creată special pentru momentele tale importante, decorată manual cu dragoste și atenție la fiecare detaliu.</p>
+    <div class="features">
+      <div class="feat fade-up">
+        <div class="feat-icon">🧁</div>
+        <div class="feat-title">Arome artizanale</div>
+        <p class="feat-text">Turtă dulce artizanală, Lemon Cookie și Dark Chocolate &amp; Orange Cookie — arome gândite pentru fiecare gust.</p>
+      </div>
+      <div class="feat fade-up">
+        <div class="feat-icon">🎨</div>
+        <div class="feat-title">Decorare manuală</div>
+        <p class="feat-text">Fiecare turtă dulce este decorată manual cu grijă sau prin print cu cerneală alimentară, pentru detalii fine și culori vii.</p>
+      </div>
+      <div class="feat fade-up">
+        <div class="feat-icon">✨</div>
+        <div class="feat-title">La comandă</div>
+        <p class="feat-text">Comenzile sunt personalizate pentru tine — tematică, culori, mesaje. Nimic nu este produs în avans.</p>
+      </div>
+      <div class="feat fade-up">
+        <div class="feat-icon">📦</div>
+        <div class="feat-title">Livrare națională</div>
+        <p class="feat-text">Livrăm prin curier în toată țara. Fiecare pachet este ambalat cu grijă pentru a ajunge perfect.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EVENIMENTE ========== -->
+<section id="evenimente">
+  <div class="wrap section-pad">
+    <div class="s-label">Ocazii speciale</div>
+    <h2 class="s-title">Pentru fiecare <em>moment</em></h2>
+    <p class="s-desc">De la primele aniversări la nunți de poveste — turta dulce decorată este cadoul perfect pentru orice eveniment.</p>
+
+    <div class="events-tabs">
+      <button class="ev-tab active" onclick="showEvent('aniversari', this)">Aniversări</button>
+      <button class="ev-tab" onclick="showEvent('nunti', this)">Nunți</button>
+      <button class="ev-tab" onclick="showEvent('botezuri', this)">Botezuri</button>
+      <button class="ev-tab" onclick="showEvent('craciun', this)">Crăciun</button>
+      <button class="ev-tab" onclick="showEvent('corporate', this)">Corporate</button>
+      <button class="ev-tab" onclick="showEvent('halloween', this)">Halloween</button>
+    </div>
+
+    <!-- ANIVERSĂRI -->
+    <div class="ev-panel active" id="ev-aniversari">
+      <div class="ev-layout">
+        <div class="ev-photo-grid">
+          <img src="images/aniversari/aniversari_01.jpeg" alt="Biscuiți decorați aniversare" loading="eager">
+          <img src="images/aniversari/aniversari_02.jpeg" alt="Biscuiți decorați aniversare" loading="lazy">
+          <img src="images/aniversari/aniversari_03.jpeg" alt="Biscuiți decorați aniversare" loading="lazy">
+          <img src="images/aniversari/aniversari_04.jpeg" alt="Biscuiți decorați aniversare" loading="lazy">
+          <img src="images/aniversari/aniversari_05.jpeg" alt="Biscuiți decorați aniversare" loading="lazy">
+        </div>
+        <div class="ev-info">
+          <h3>Aniversări</h3>
+          <div class="tags">
+            <span class="tag">Copii</span>
+            <span class="tag">Adulți</span>
+            <span class="tag">Tematice</span>
+            <span class="tag">Corporate</span>
+          </div>
+          <p>Fiecare aniversare are tema ei, iar turta dulce decorată completează povestea petrecerii. Realizăm modele personalizate pentru copii, inspirate din personaje și universuri îndrăgite precum Frozen, Vaiana, Minecraft, Roblox sau Geometry Dash, dar și creații speciale pentru majorate și aniversările adulților. De la teme inspirate din jocuri și pasiuni, până la concepte elegante sau creative, fiecare comandă este adaptată evenimentului și preferințelor tale.</p>
+          <p>Comenzi minime 10 bucăți, cu discount automat de la 20 bucăți.</p>
+          <a href="#comanda" class="btn btn-rose">Comandă pentru aniversare</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUNȚI -->
+    <div class="ev-panel" id="ev-nunti">
+      <div class="s-label" style="margin-bottom: 8px;">Alege categoria</div>
+      <div class="sub-tabs-wrap">
+        <button class="sub-tab active" onclick="showNunti('marturii', this)">Mărturii</button>
+        <button class="sub-tab" onclick="showNunti('candybar', this)">Candy Bar</button>
+      </div>
+
+      <!-- Mărturii -->
+      <div class="sub-panel active" id="nunti-marturii">
+        <div class="ev-layout">
+          <div class="ev-photo-grid">
+            <img src="images/nunti/nunti_marturii_01.jpeg" alt="Mărturii nuntă biscuiți decorați" loading="lazy">
+          </div>
+          <div class="ev-info">
+            <h3>Mărturii Nuntă</h3>
+            <div class="tags">
+              <span class="tag">Ambalate individual</span>
+              <span class="tag">Monograme</span>
+              <span class="tag">Personalizate</span>
+              <span class="tag">Data nunții</span>
+            </div>
+            <p>Mărturiile sub formă de turtă dulce decorată sunt cadoul pe care invitații îl vor ține minte. Elegante, personalizate cu inițialele voastre și data nunții.</p>
+            <p>Fiecare bucată este ambalată individual, cu fundă în culorile temei voastre.</p>
+            <a href="#comanda" class="btn btn-rose">Comandă mărturii</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Candy Bar -->
+      <div class="sub-panel" id="nunti-candybar">
+        <div class="ev-layout rev">
+          <div class="ev-photo-grid">
+            <img src="images/nunti/nunti_candybar_01.jpeg" alt="Candy bar nuntă biscuiți decorați" loading="lazy">
+            <img src="images/nunti/nunti_candybar_02.jpeg" alt="Candy bar nuntă biscuiți decorați" loading="lazy">
+            <img src="images/nunti/nunti_candybar_03.jpeg" alt="Candy bar nuntă biscuiți decorați" loading="lazy">
+            <img src="images/nunti/nunti_candybar_04.jpeg" alt="Candy bar nuntă biscuiți decorați" loading="lazy">
+          </div>
+          <div class="ev-info">
+            <h3>Candy Bar Nuntă</h3>
+            <div class="tags">
+              <span class="tag">Set tematic</span>
+              <span class="tag">Sortimente variate</span>
+              <span class="tag">Display decorativ</span>
+            </div>
+            <p>Un candy bar cu turtă dulce decorată este elementul WOW al oricărei nunți.</p>
+            <p>Seturi tematice coordonate în culorile voastre — forme diverse, decoruri fine, perfecte pentru fotografii și pentru a impresiona fiecare invitat.</p>
+            <a href="#comanda" class="btn btn-rose">Comandă candy bar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTEZURI -->
+    <div class="ev-panel" id="ev-botezuri">
+      <div class="s-label" style="margin-bottom: 8px;">Alege categoria</div>
+      <div class="sub-tabs-wrap">
+        <button class="sub-tab active" onclick="showBotez('marturii', this)">Mărturii</button>
+        <button class="sub-tab" onclick="showBotez('candybar', this)">Candy Bar</button>
+      </div>
+
+      <div class="sub-panel active" id="botez-marturii">
+        <div class="ev-layout">
+          <div class="ev-photo-grid">
+            <img src="images/botez/botez_marturii_01.jpeg" alt="Mărturii botez biscuiți decorați" loading="lazy">
+            <img src="images/botez/botez_marturii_02.jpeg" alt="Mărturii botez biscuiți decorați" loading="lazy">
+          </div>
+          <div class="ev-info">
+            <h3>Mărturii Botez</h3>
+            <div class="tags">
+              <span class="tag">Ambalate individual</span>
+              <span class="tag">Personalizate</span>
+              <span class="tag">Îngerași</span>
+              <span class="tag">Cruciulițe</span>
+            </div>
+            <p>Mărturiile sub formă de turtă dulce decorată sunt un cadou delicios și vizual impresionant pentru invitați. Fiecare bucată este ambalată individual, cu fundă în culorile temei botezului.</p>
+            <p>Poți alege design-uri tradiționale sau moderne. Comenzi de la 10 bucăți.</p>
+            <a href="#comanda" class="btn btn-rose">Comandă mărturii</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-panel" id="botez-candybar">
+        <div class="ev-layout rev">
+          <div class="ev-photo-grid">
+            <img src="images/botez/botez_candybar_01.jpeg" alt="Candy bar botez biscuiți decorați" loading="lazy">
+            <img src="images/botez/botez_candybar_02.jpeg" alt="Candy bar botez biscuiți decorați" loading="lazy">
+          </div>
+          <div class="ev-info">
+            <h3>Candy Bar Botez</h3>
+            <div class="tags">
+              <span class="tag">Set tematic</span>
+              <span class="tag">Sortimente variate</span>
+              <span class="tag">Display decorativ</span>
+            </div>
+            <p>Un candy bar cu turtă dulce decorată este elementul WOW al oricărui botez.</p>
+            <p>Seturi tematice coordonate în culorile temei — forme diverse, decoruri fine, perfecte pentru fotografii și pentru a impresiona fiecare invitat.</p>
+            <a href="#comanda" class="btn btn-rose">Comandă candy bar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORPORATE -->
+    <div class="ev-panel" id="ev-corporate">
+      <div class="ev-layout rev">
+        <div class="ev-photo-grid">
+          <img src="images/corporate/corporate_01.jpeg" alt="Biscuiți decorați corporate" loading="lazy">
+          <img src="images/corporate/corporate_02.jpeg" alt="Biscuiți decorați corporate" loading="lazy">
+          <img src="images/corporate/corporate_03.jpeg" alt="Biscuiți decorați corporate" loading="lazy">
+        </div>
+        <div class="ev-info">
+          <h3>Corporate</h3>
+          <div class="tags">
+            <span class="tag">Evenimente de firmă</span>
+            <span class="tag">Branded</span>
+            <span class="tag">Team building</span>
+            <span class="tag">Cadouri colegi</span>
+          </div>
+          <p>Turta dulce decorată este cadoul de firmă care iese din tipare. Personalizată cu logo-ul companiei, culorile brandului sau mesaje de mulțumire — fiecare bucată devine o carte de vizită comestibilă.</p>
+          <p>Perfecte pentru evenimente de firmă, lansări de produse, sărbători de end-of-year sau cadouri pentru parteneri.</p>
+          <a href="#comanda" class="btn btn-rose">Comandă pentru firmă</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HALLOWEEN -->
+    <div class="ev-panel" id="ev-halloween">
+      <div class="ev-layout">
+        <div class="ev-photo-grid">
+          <img src="images/halloween/halloween_01.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+          <img src="images/halloween/halloween_02.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+          <img src="images/halloween/halloween_03.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+          <img src="images/halloween/halloween_04.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+          <img src="images/halloween/halloween_05.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+          <img src="images/halloween/halloween_06.jpeg" alt="Biscuiți decorați Halloween" loading="lazy">
+        </div>
+        <div class="ev-info">
+          <h3>Halloween</h3>
+          <div class="tags">
+            <span class="tag">Petreceri</span>
+            <span class="tag">Tematice</span>
+            <span class="tag">Candy Bar</span>
+            <span class="tag">Cadouri</span>
+          </div>
+          <p>Turta dulce de Halloween aduce magia înfricoșătoare pe masă — pisici negre, dovleci, fantome, cranii și tot ce face noaptea de 31 octombrie de neuitat.</p>
+          <p>Perfecte pentru petreceri tematice, candy bar-uri sau cadouri pentru cei mici (și cei mari!). Fiecare bucată este decorată manual cu detalii care îți taie respirația.</p>
+          <a href="#comanda" class="btn btn-rose">Comandă pentru Halloween</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRĂCIUN -->
+    <div class="ev-panel" id="ev-craciun">
+      <div class="ev-layout">
+        <div class="ev-photo-grid">
+          <img src="images/craciun/craciun_01.jpeg" alt="Biscuiți decorați Crăciun" loading="lazy">
+          <img src="images/craciun/craciun_02.jpeg" alt="Biscuiți decorați Crăciun" loading="lazy">
+          <img src="images/craciun/craciun_03.jpeg" alt="Biscuiți decorați Crăciun" loading="lazy">
+          <img src="images/craciun/craciun_04.jpeg" alt="Biscuiți decorați Crăciun" loading="lazy">
+          <img src="images/craciun/craciun_05.jpeg" alt="Biscuiți decorați Crăciun" loading="lazy">
+        </div>
+        <div class="ev-info">
+          <h3>Crăciun</h3>
+          <div class="tags">
+            <span class="tag">Cadouri</span>
+            <span class="tag">Coșuri festive</span>
+            <span class="tag">Tematice</span>
+            <span class="tag">Corporate</span>
+          </div>
+          <p>Sărbătorile de iarnă capătă un gust aparte cu turta dulce decorată de Crăciun. Brăduți, fulgi de nea, Moș Crăciun sau reni — fiecare design aduce magia Crăciunului pe masă.</p>
+          <p>Perfecte ca daruri pentru colegi, cadouri pentru copii sau ca element festiv al mesei de Crăciun. Comenzile pentru sărbători se închid devreme — rezervă din timp!</p>
+          <a href="#comanda" class="btn btn-rose">Comandă pentru Crăciun</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== PREȚURI ========== -->
+<section id="preturi">
+  <div class="wrap section-pad" style="position:relative; z-index:1;">
+    <h2 class="s-title" style="color:#F0E8E4;">Prețuri</h2>
+    <div class="price-hero">
+      <span class="price-num">18</span>
+      <div class="price-unit-wrap">
+        <span class="price-currency">lei</span>
+        <span class="price-per">/ bucată</span>
+      </div>
+    </div>
+    <p class="s-desc">Prețul include decorarea completă, ambalarea și pregătirea pentru livrare.</p>
+    <div class="price-cards">
+      <div class="price-card fade-up">
+        <div class="price-card-title">Comandă minimă</div>
+        <p class="price-card-text">Minimum <strong style="color:#F0E8E4">10 bucăți</strong> per comandă. Personalizam fiecare set în funcție de evenimentul tău.</p>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-card-title">Discount volum</div>
+        <p class="price-card-text">20+ buc: <strong style="color:#F0E8E4">–10%</strong><br>30+ buc: <strong style="color:#F0E8E4">–15%</strong><br>40+ buc: <strong style="color:#F0E8E4">–20%</strong></p>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-card-title">Livrare</div>
+        <p class="price-card-text">Livrare prin curier în <strong style="color:#F0E8E4">toată țara</strong>. Costul livrării se adaugă la comandă și variază în funcție de localitate.</p>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-card-title">Plată</div>
+        <p class="price-card-text"><strong style="color:#F0E8E4">Plata integrală</strong> la plasarea comenzii. Comanda intră în producție după confirmarea plății.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMANDĂ ========== -->
+<section id="comanda">
+  <div class="wrap section-pad">
+    <div class="s-label">Hai să creăm ceva special</div>
+    <h2 class="s-title">Plasează o <em>comandă</em></h2>
+    <p class="s-desc">Completează formularul de mai jos. Comanda intră în producție după confirmarea plății integrale.</p>
+
+    <div class="form-wrap">
+      <div class="steps-bar">
+        <div class="step-item active" id="si-1">
+          <div class="step-num">1</div>
+          <span class="step-lbl">Detalii eveniment</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" id="si-2">
+          <div class="step-num">2</div>
+          <span class="step-lbl">Contact &amp; livrare</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item" id="si-3">
+          <div class="step-num">3</div>
+          <span class="step-lbl">Confirmare &amp; plată</span>
+        </div>
+      </div>
+
+      <div class="form-body">
+
+        <!-- STEP 1 -->
+        <div class="fpanel active" id="fp1">
+          <h3 style="font-family:var(--f-display);font-size:1.6rem;margin-bottom:24px;color:var(--fg);">Spune-mi despre eveniment</h3>
+
+          <div class="fg">
+            <label for="ev_tip">Tip eveniment *</label>
+            <select id="ev_tip" required onchange="updateOrderSummary()">
+              <option value="">— Selectează —</option>
+              <option value="Aniversare copii">Aniversare copii</option>
+              <option value="Aniversare adulți">Aniversare adulți</option>
+              <option value="Nuntă – Mărturii">Nuntă – Mărturii</option>
+              <option value="Nuntă – Candy Bar">Nuntă – Candy Bar</option>
+              <option value="Botez – Mărturii">Botez – Mărturii</option>
+              <option value="Botez – Candy Bar">Botez – Candy Bar</option>
+              <option value="Corporate">Corporate</option>
+              <option value="Altul">Altul</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="fg">
+              <label for="ev_data">Data evenimentului *</label>
+              <input type="date" id="ev_data" required onchange="updateOrderSummary()">
+            </div>
+            <div class="fg">
+              <label for="cantitate">Număr de biscuiți *</label>
+              <input type="number" id="cantitate" min="10" value="10" placeholder="Minim 10"
+                     required oninput="updateCalc()" onchange="updateOrderSummary()">
+              <div class="hint">Minim 10 bucăți per comandă</div>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label>Aromă preferată</label>
+            <div class="flavor-grid">
+              <label class="fl-opt">
+                <input type="checkbox" name="aroma" value="Turtă dulce artizanală" onchange="updateOrderSummary()">
+                <span class="fl-label">
+                  <span class="fl-em">🌿</span>
+                  <span class="fl-nm">Turtă dulce artizanală</span>
+                </span>
+              </label>
+              <label class="fl-opt">
+                <input type="checkbox" name="aroma" value="Lemon Cookie" onchange="updateOrderSummary()">
+                <span class="fl-label">
+                  <span class="fl-em">🍋</span>
+                  <span class="fl-nm">Lemon Cookie</span>
+                </span>
+              </label>
+              <label class="fl-opt">
+                <input type="checkbox" name="aroma" value="Dark Choc & Orange" onchange="updateOrderSummary()">
+                <span class="fl-label">
+                  <span class="fl-em">🍊</span>
+                  <span class="fl-nm">Dark Choc &amp; Orange</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="fg" style="margin-top:4px;">
+            <label for="detalii_deco">Detalii decorare / temă *</label>
+            <textarea id="detalii_deco" placeholder="Ex: Temă Frozen, culori roz și auriu, inițialele M&A, data 15.06.2025…" required onchange="updateOrderSummary()"></textarea>
+          </div>
+
+          <div class="fg">
+            <label for="ref_photos">Poze referință <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.8rem;">(opțional)</span></label>
+            <input type="file" id="ref_photos" accept="image/*" multiple style="padding:8px 10px;cursor:pointer;">
+            <div class="hint">Încarcă poze cu modelele dorite — ne ajută să înțelegem exact ce vrei.</div>
+          </div>
+
+          <div class="calc-box" id="calcBox">
+            <div class="calc-row">
+              <span>Preț unitar</span>
+              <span>18 lei</span>
+            </div>
+            <div class="calc-row" id="calcQty">
+              <span>Cantitate</span>
+              <span>10 buc.</span>
+            </div>
+            <div class="calc-row" id="calcDiscount" style="display:none;">
+              <span>Discount volum <span class="discount-badge" id="discountBadge">–</span></span>
+              <span id="discountAmt">0 lei</span>
+            </div>
+            <div class="calc-row total">
+              <span>Total estimat</span>
+              <strong id="calcTotal">180 lei</strong>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <span></span>
+            <button class="btn btn-rose" onclick="goStep(2)">Continuă →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="fpanel" id="fp2">
+          <h3 style="font-family:var(--f-display);font-size:1.6rem;margin-bottom:24px;color:var(--fg);">Date de contact &amp; livrare</h3>
+
+          <div class="form-row">
+            <div class="fg">
+              <label for="nume">Nume complet *</label>
+              <input type="text" id="nume" placeholder="Maria Ionescu" required onchange="updateOrderSummary()">
+            </div>
+            <div class="fg">
+              <label for="telefon">Telefon *</label>
+              <input type="tel" id="telefon" placeholder="07XX XXX XXX" required onchange="updateOrderSummary()">
+            </div>
+          </div>
+
+          <div class="fg">
+            <label for="email">Email *</label>
+            <input type="email" id="email" placeholder="maria@exemplu.ro" required onchange="updateOrderSummary()">
+          </div>
+
+          <div class="fg">
+            <label for="adresa">Adresă livrare *</label>
+            <input type="text" id="adresa" placeholder="Str. Florilor nr. 5, Ap. 2, Cluj-Napoca" required onchange="updateOrderSummary()">
+          </div>
+
+          <div class="form-row">
+            <div class="fg">
+              <label for="oras">Oraș *</label>
+              <input type="text" id="oras" placeholder="București" required onchange="updateOrderSummary()">
+            </div>
+            <div class="fg">
+              <label for="judet">Județ *</label>
+              <input type="text" id="judet" placeholder="Ilfov" required onchange="updateOrderSummary()">
+            </div>
+          </div>
+
+          <div class="fg">
+            <label for="obs">Observații suplimentare</label>
+            <textarea id="obs" placeholder="Orice detalii suplimentare care te pot ajuta (ex: referințe vizuale, culori exacte, instrucțiuni de livrare)…" onchange="updateOrderSummary()"></textarea>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-muted" onclick="goStep(1)">← Înapoi</button>
+            <button class="btn btn-rose" onclick="goStep(3)">Continuă →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="fpanel" id="fp3">
+          <h3 style="font-family:var(--f-display);font-size:1.6rem;margin-bottom:24px;color:var(--fg);">Confirmă comanda</h3>
+
+          <div class="sum-box">
+            <div class="sum-row"><span class="sum-lbl">Eveniment</span>    <span class="sum-val" id="sum-ev">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Data eveniment</span><span class="sum-val" id="sum-data">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Cantitate</span>    <span class="sum-val" id="sum-qty">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Aromă</span>        <span class="sum-val" id="sum-aroma">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Temă / detalii</span><span class="sum-val" id="sum-deco">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Livrare la</span>   <span class="sum-val" id="sum-adresa">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Contact</span>      <span class="sum-val" id="sum-contact">—</span></div>
+          </div>
+
+          <div class="pay-box">
+            <h4>Plată integrală la comandă</h4>
+            <p>Comanda intră în producție <strong>după confirmarea plății</strong>. Suma de plată (fără livrare) este:</p>
+            <div class="pay-amount" id="payAmount">180 lei</div>
+            <p>Te vom contacta în maxim <strong>24 de ore</strong> pe WhatsApp sau email pentru a-ți trimite datele de plată (transfer bancar sau Revolut) și pentru a confirma comanda.</p>
+            <p style="margin-top:12px;">📱 WhatsApp rapid: <strong>0763 613 726</strong></p>
+          </div>
+
+          <div class="fg">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:0.85rem;color:var(--fg-muted);font-weight:400;">
+              <input type="checkbox" id="gdprCheck" style="width:auto;margin-top:2px;">
+              Sunt de acord cu procesarea datelor personale în scopul onorării comenzii. *
+            </label>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-muted" onclick="goStep(2)">← Înapoi</button>
+            <button class="btn btn-rose" id="submitBtn" onclick="submitOrder()">Trimite comanda ✓</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-state" id="successState">
+          <div class="success-icon">🎉</div>
+          <h3>Comandă trimisă!</h3>
+          <p>Mulțumim, <strong id="successName">prietenă</strong>! Te vom contacta în maxim 24 de ore pe <strong id="successPhone">telefonul tău</strong> cu datele de plată și confirmarea comenzii.</p>
+          <p style="font-size:0.82rem;color:var(--fg-muted);">Verifică și folderul de spam dacă nu primești emailul nostru.</p>
+          <a href="#hero" class="btn btn-rose" style="margin-top: 8px;">Înapoi la început</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <div class="wrap section-pad">
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-title">Hai să<br>creăm ceva<br><em>împreună</em></h2>
+        <p class="contact-desc">Fiecare comandă este o colaborare. Trimite-mi un mesaj cu ideile tale și construim împreună biscuiții visați.</p>
+      </div>
+      <div class="contact-items">
+        <a class="ci" href="https://instagram.com/iced.stories" target="_blank" rel="noopener">
+          <span class="ci-icon">📸</span>
+          <div>
+            <span class="ci-label">Instagram</span>
+            <span class="ci-val">@iced.stories</span>
+          </div>
+        </a>
+        <a class="ci" href="https://wa.me/40763613726" target="_blank" rel="noopener">
+          <span class="ci-icon">📱</span>
+          <div>
+            <span class="ci-label">WhatsApp &amp; Telefon</span>
+            <span class="ci-val">0763 613 726</span>
+          </div>
+        </a>
+        <a class="ci" href="https://tiktok.com/@iced.stories.gingerbread" target="_blank" rel="noopener">
+          <span class="ci-icon">🎵</span>
+          <div>
+            <span class="ci-label">TikTok</span>
+            <span class="ci-val">@iced.stories.gingerbread</span>
+          </div>
+        </a>
+        <div class="ci">
+          <span class="ci-icon">🚚</span>
+          <div>
+            <span class="ci-label">Livrare</span>
+            <span class="ci-val">Curier în toată România</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" aria-label="Închide">&times;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-logo">Iced Stories</div>
+  <p class="footer-sub">Turtă dulce &amp; biscuiți decorați la comandă &nbsp;·&nbsp; © 2026</p>
+</footer>
+
+<script>
+// ---- MOBILE NAV ----
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ---- EVENT TABS ----
+function showEvent(id, btn) {
+  document.querySelectorAll('.ev-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ev-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('ev-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ---- NUNTI SUB-TABS ----
+function showNunti(id, btn) {
+  document.querySelectorAll('#ev-nunti .sub-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#ev-nunti .sub-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('nunti-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ---- BOTEZ SUB-TABS ----
+function showBotez(id, btn) {
+  document.querySelectorAll('#ev-botezuri .sub-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#ev-botezuri .sub-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('botez-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ---- PRICE CALCULATOR ----
+function updateCalc() {
+  const qty = parseInt(document.getElementById('cantitate').value) || 0;
+  const pricePerUnit = 18;
+  let subtotal = qty * pricePerUnit;
+  let discountPct = 0;
+  if (qty >= 40) discountPct = 20;
+  else if (qty >= 30) discountPct = 15;
+  else if (qty >= 20) discountPct = 10;
+  const discount = Math.round(subtotal * discountPct / 100);
+  const total = subtotal - discount;
+
+  document.getElementById('calcQty').querySelector('span:last-child').textContent = qty + ' buc.';
+
+  const discRow = document.getElementById('calcDiscount');
+  if (discount > 0) {
+    discRow.style.display = 'flex';
+    document.getElementById('discountBadge').textContent = '–' + discountPct + '%';
+    document.getElementById('discountAmt').textContent = '–' + discount + ' lei';
+  } else {
+    discRow.style.display = 'none';
+  }
+
+  document.getElementById('calcTotal').textContent = total + ' lei';
+  document.getElementById('payAmount').textContent = total + ' lei';
+}
+
+// ---- MULTI-STEP FORM ----
+function goStep(n) {
+  if (n > 1 && !validateStep(n - 1)) return;
+
+  [1, 2, 3].forEach(i => {
+    document.getElementById('fp' + i).classList.toggle('active', i === n);
+    const si = document.getElementById('si-' + i);
+    si.classList.remove('active', 'done');
+    if (i === n) si.classList.add('active');
+    else if (i < n) si.classList.add('done');
+  });
+
+  if (n === 3) buildSummary();
+  window.scrollTo({ top: document.getElementById('comanda').offsetTop - 80, behavior: 'smooth' });
+}
+
+function validateStep(n) {
+  if (n === 1) {
+    const tip = document.getElementById('ev_tip').value;
+    const data = document.getElementById('ev_data').value;
+    const qty = parseInt(document.getElementById('cantitate').value) || 0;
+    const deco = document.getElementById('detalii_deco').value.trim();
+    if (!tip)     { alert('Te rog selectează tipul evenimentului.'); return false; }
+    if (!data)    { alert('Te rog alege data evenimentului.'); return false; }
+    if (qty < 10) { alert('Comanda minimă este de 10 bucăți.'); return false; }
+    if (!deco)    { alert('Te rog descrie tema / detaliile de decorare.'); return false; }
+  }
+  if (n === 2) {
+    const fields = ['nume', 'telefon', 'email', 'adresa', 'oras', 'judet'];
+    for (const id of fields) {
+      if (!document.getElementById(id).value.trim()) {
+        alert('Te rog completează toate câmpurile obligatorii.');
+        document.getElementById(id).focus();
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function buildSummary() {
+  const qty = parseInt(document.getElementById('cantitate').value) || 0;
+  let subtotal = qty * 18;
+  let discount = 0;
+  if (qty >= 40) discount = Math.round(subtotal * 0.20);
+  else if (qty >= 30) discount = Math.round(subtotal * 0.15);
+  else if (qty >= 20) discount = Math.round(subtotal * 0.10);
+  const total = subtotal - discount;
+
+  const aromeChecked = [...document.querySelectorAll('input[name="aroma"]:checked')].map(c => c.value);
+  const dateRaw = document.getElementById('ev_data').value;
+  let dateFormatted = dateRaw;
+  try {
+    dateFormatted = new Date(dateRaw).toLocaleDateString('ro-RO', { day: '2-digit', month: 'long', year: 'numeric' });
+  } catch(e) {}
+
+  document.getElementById('sum-ev').textContent      = document.getElementById('ev_tip').value || '—';
+  document.getElementById('sum-data').textContent    = dateFormatted;
+  document.getElementById('sum-qty').textContent     = qty + ' bucăți';
+  document.getElementById('sum-aroma').textContent   = aromeChecked.length ? aromeChecked.join(', ') : 'Nicio aromă selectată';
+  document.getElementById('sum-deco').textContent    = document.getElementById('detalii_deco').value || '—';
+  document.getElementById('sum-adresa').textContent  = `${document.getElementById('adresa').value}, ${document.getElementById('oras').value}, jud. ${document.getElementById('judet').value}`;
+  document.getElementById('sum-contact').textContent = `${document.getElementById('nume').value} · ${document.getElementById('telefon').value}`;
+  document.getElementById('payAmount').textContent   = total + ' lei';
+}
+
+function updateOrderSummary() { updateCalc(); }
+
+async function submitOrder() {
+  if (!document.getElementById('gdprCheck').checked) {
+    alert('Te rog bifează acordul pentru procesarea datelor.');
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Se trimite...';
+
+  const qty = parseInt(document.getElementById('cantitate').value) || 0;
+  let subtotal = qty * 18;
+  let discountPct = 0;
+  if (qty >= 40) discountPct = 20;
+  else if (qty >= 30) discountPct = 15;
+  else if (qty >= 20) discountPct = 10;
+  const discount = Math.round(subtotal * discountPct / 100);
+  const total = subtotal - discount;
+
+  const arome = [...document.querySelectorAll('input[name="aroma"]:checked')].map(c => c.value);
+  const dateRaw = document.getElementById('ev_data').value;
+  let dateFormatted = dateRaw;
+  try { dateFormatted = new Date(dateRaw).toLocaleDateString('ro-RO', { day: '2-digit', month: 'long', year: 'numeric' }); } catch(e) {}
+
+  const payload = {
+    _subject: '🍪 Comandă nouă – Iced Stories',
+    Eveniment:        document.getElementById('ev_tip').value,
+    Data_eveniment:   dateFormatted,
+    Cantitate:        qty + ' bucăți',
+    Arome:            arome.length ? arome.join(', ') : 'Nespecificat',
+    Tema_detalii:     document.getElementById('detalii_deco').value,
+    Nume:             document.getElementById('nume').value,
+    Telefon:          document.getElementById('telefon').value,
+    Email:            document.getElementById('email').value,
+    Adresa_livrare:   `${document.getElementById('adresa').value}, ${document.getElementById('oras').value}, jud. ${document.getElementById('judet').value}`,
+    Observatii:       document.getElementById('obs').value.trim() || '—',
+    Total:            discountPct > 0 ? `${total} lei (discount ${discountPct}%)` : `${total} lei`,
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xbgoajlq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      document.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      document.getElementById('successState').classList.add('show');
+      const name = document.getElementById('nume').value.trim().split(' ')[0] || 'prietenă';
+      const phone = document.getElementById('telefon').value.trim();
+      document.getElementById('successName').textContent  = name;
+      document.getElementById('successPhone').textContent = phone;
+      [1, 2, 3].forEach(i => {
+        const si = document.getElementById('si-' + i);
+        si.classList.remove('active'); si.classList.add('done');
+      });
+      window.scrollTo({ top: document.getElementById('comanda').offsetTop - 80, behavior: 'smooth' });
+    } else {
+      throw new Error('server error');
+    }
+  } catch(e) {
+    alert('A apărut o eroare la trimitere. Te rog încearcă din nou sau contactează-ne direct pe WhatsApp: 0763 613 726');
+    btn.disabled = false;
+    btn.textContent = 'Trimite comanda ✓';
+  }
+}
+
+// ---- LIGHTBOX ----
+document.querySelectorAll('.ev-photo-grid img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lbImg').src = img.src;
+    document.getElementById('lbImg').alt = img.alt;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ---- FADE ON SCROLL ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+updateCalc();
+</script>
+</body>
+</html>
